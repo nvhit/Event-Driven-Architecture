@@ -1,33 +1,44 @@
 #!/bin/bash
-echo "🔍 Verifying StreamSocial setup..."
+echo "🔍 Verifying StreamSocial setup (Spring Boot)..."
 
-# Check Python version
-python --version | grep "3.11" > /dev/null
-if [ $? -eq 0 ]; then
-    echo "✅ Python 3.11 detected"
+# Check Java version
+JAVA_VERSION=$(java -version 2>&1 | head -n 1)
+if echo "$JAVA_VERSION" | grep -qE '"(17|18|19|20|21)'; then
+    echo "✅ Java 17+ detected: $JAVA_VERSION"
 else
-    echo "❌ Python 3.11 not found"
+    echo "❌ Java 17+ not found. Current: $JAVA_VERSION"
 fi
 
-# Check virtual environment
-if [ -d "venv" ]; then
-    echo "✅ Virtual environment created"
+# Check Maven
+if command -v mvn &> /dev/null; then
+    MVN_VERSION=$(mvn --version 2>&1 | head -n 1)
+    echo "✅ Maven detected: $MVN_VERSION"
 else
-    echo "❌ Virtual environment missing"
+    echo "❌ Maven not found"
 fi
 
-# Check backend files
+# Check backend-java files
 BACKEND_FILES=(
-    "backend/src/main.py"
-    "backend/src/events/models.py"
-    "backend/src/events/event_bus.py"
-    "backend/src/handlers/feed_handler.py"
-    "backend/src/handlers/notification_handler.py"
+    "backend-java/pom.xml"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/EventTaxonomyApplication.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/events/BaseEvent.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/events/EventType.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/events/EventBus.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/handlers/FeedHandler.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/handlers/NotificationHandler.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/controller/EventController.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/websocket/EventWebSocketHandler.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/config/WebSocketConfig.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/config/EventBusConfig.java"
+    "backend-java/src/main/java/com/streamsocial/eventtaxonomy/config/CorsConfig.java"
+    "backend-java/src/main/resources/application.properties"
 )
 
+echo ""
+echo "📁 Checking backend files..."
 for file in "${BACKEND_FILES[@]}"; do
     if [ -f "$file" ]; then
-        echo "✅ $file exists"
+        echo "✅ $file"
     else
         echo "❌ $file missing"
     fi
@@ -41,9 +52,11 @@ FRONTEND_FILES=(
     "frontend/package.json"
 )
 
+echo ""
+echo "📁 Checking frontend files..."
 for file in "${FRONTEND_FILES[@]}"; do
     if [ -f "$file" ]; then
-        echo "✅ $file exists"
+        echo "✅ $file"
     else
         echo "❌ $file missing"
     fi
@@ -53,7 +66,19 @@ done
 if [ -d "frontend/dist" ]; then
     echo "✅ Frontend built"
 else
-    echo "❌ Frontend not built"
+    echo "⚠️  Frontend not built (run: cd frontend && npm run build)"
 fi
 
+# Try to compile backend
+echo ""
+echo "🔨 Verifying backend compilation..."
+cd backend-java
+if mvn compile -q 2>/dev/null; then
+    echo "✅ Backend compiles successfully"
+else
+    echo "❌ Backend compilation failed"
+fi
+cd ..
+
+echo ""
 echo "🎯 Setup verification complete!"

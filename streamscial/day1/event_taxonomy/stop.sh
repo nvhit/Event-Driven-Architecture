@@ -12,7 +12,7 @@ if [ -f .pids ]; then
     rm .pids
 fi
 
-# Kill any remaining uvicorn processes
-pkill -f uvicorn 2>/dev/null
+# Kill any remaining Spring Boot / Java processes on port 8000
+lsof -ti:8000 | xargs kill -9 2>/dev/null
 
 echo "✅ StreamSocial stopped"
