@@ -22,9 +22,15 @@ public class EventBusConfig {
 
     @PostConstruct
     public void setupSubscriptions() {
-        eventBus.subscribe(EventType.POST_CREATED.getValue(), feedHandler::handlePostCreated);
-        eventBus.subscribe(EventType.POST_LIKED.getValue(), feedHandler::handlePostLiked);
-        eventBus.subscribe(EventType.FOLLOW_INITIATED.getValue(), notificationHandler::handleFollowInitiated);
-        eventBus.subscribe(EventType.COMMENT_ADDED.getValue(), notificationHandler::handleCommentAdded);
+        // Feed handler subscriptions
+        eventBus.subscribe(EventType.USER_POST_CREATE.getValue(), feedHandler::handlePostCreated);
+        eventBus.subscribe(EventType.CONTENT_LIKE.getValue(), feedHandler::handlePostLiked);
+        eventBus.subscribe(EventType.USER_POST_DELETE.getValue(), feedHandler::handlePostDeleted);
+
+        // Notification handler subscriptions
+        eventBus.subscribe(EventType.USER_FOLLOW.getValue(), notificationHandler::handleFollowUser);
+        eventBus.subscribe(EventType.CONTENT_COMMENT.getValue(), notificationHandler::handleCommentAdded);
+        eventBus.subscribe(EventType.CONTENT_LIKE.getValue(), notificationHandler::handleContentLiked);
+        eventBus.subscribe(EventType.USER_REGISTRATION.getValue(), notificationHandler::handleUserRegistration);
     }
 }

@@ -12,7 +12,10 @@ if [ -f .pids ]; then
     rm .pids
 fi
 
-# Kill any remaining Spring Boot / Java processes on port 8000
-lsof -ti:8000 | xargs kill -9 2>/dev/null
+# Kill any remaining Spring Boot / Java processes on port 8080
+lsof -ti:8080 | xargs kill -9 2>/dev/null
+
+# Stop Docker Kafka
+docker-compose down 2>/dev/null
 
 echo "✅ StreamSocial stopped"

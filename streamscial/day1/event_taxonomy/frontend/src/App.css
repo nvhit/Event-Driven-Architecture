@@ -450,6 +450,22 @@ body {
   color: var(--text-secondary);
 }
 
+.ig-grid-btn small {
+  font-size: 0.62rem;
+  color: var(--text-disabled);
+  font-family: var(--font-mono);
+}
+
+.ig-quick-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-weak);
+  border-radius: 8px;
+}
+
 /* Toast */
 .ig-toast {
   position: absolute;
@@ -638,6 +654,19 @@ body {
   background: var(--bg-hover);
 }
 
+/* Event category colors */
+.event-category-user {
+  border-left-color: var(--accent-green) !important;
+}
+
+.event-category-content {
+  border-left-color: var(--accent-blue) !important;
+}
+
+.event-category-system {
+  border-left-color: var(--accent-orange) !important;
+}
+
 .event-item:nth-child(4n+2) {
   border-left-color: var(--accent-green);
 }
@@ -708,18 +737,22 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.72rem;
-  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-weak);
 }
 
-.connection-status::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-green);
-  box-shadow: 0 0 6px var(--accent-green);
-  animation: pulse 2s infinite;
+.connection-status.live {
+  color: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.connection-status.disconnected {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
 }
 
 @keyframes pulse {

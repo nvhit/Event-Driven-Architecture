@@ -18,9 +18,10 @@ public class EventBus {
         // Store event for replay capability
         Map<String, Object> eventMap = new HashMap<>();
         eventMap.put("event_id", event.getEventId());
-        eventMap.put("timestamp", event.getTimestamp().toString());
         eventMap.put("event_type", event.getEventType());
+        eventMap.put("timestamp", event.getTimestamp().toString());
         eventMap.put("user_id", event.getUserId());
+        eventMap.put("session_id", event.getSessionId());
         eventMap.put("data", event.getData());
         eventMap.put("metadata", event.getMetadata());
         eventStore.add(eventMap);

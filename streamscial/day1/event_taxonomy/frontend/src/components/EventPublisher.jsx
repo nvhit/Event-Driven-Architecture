@@ -1,76 +1,125 @@
 import React, { useState } from 'react';
 
+const API_BASE = 'http://localhost:8080/api/v1/events';
+
 const EventPublisher = ({ onEventPublished }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [postContent, setPostContent] = useState('');
   const [commentContent, setCommentContent] = useState('');
-  const [activeTab, setActiveTab] = useState('feed');
+  const [activeTab, setActiveTab] = useState('user');
 
   const currentUser = {
     name: 'streamsocial_dev',
     avatar: '🧑‍💻',
-    followers: 1024,
-    following: 256,
-    posts: 42
+    userId: 'user_001'
   };
 
-  const publishEvent = async (eventType, data) => {
+  const publishEvent = async (endpoint, data) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/events/${eventType}`, {
+      const response = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
 
       if (response.ok) {
-        setMessage(`Event published successfully`);
+        const result = await response.json();
+        setMessage(`✅ Event published: ${result.event_id?.slice(0, 8)}`);
         onEventPublished();
       } else {
-        setMessage(`Failed to publish event`);
+        setMessage('❌ Failed to publish event');
       }
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      setMessage(`❌ Error: ${error.message}`);
     }
     setLoading(false);
     setTimeout(() => setMessage(''), 3000);
   };
 
+  // ========== USER ACTIONS ==========
+  const handleRegister = () => {
+    publishEvent('/user/register', {
+      username: `user_${Date.now().toString(36)}`,
+      email: `user_${Date.now().toString(36)}@streamsocial.com`
+    });
+  };
+
+  const handleLogin = () => {
+    publishEvent('/user/login', {
+      user_id: currentUser.userId,
+      username: currentUser.name,
+      ip_address: '192.168.1.' + Math.floor(Math.random() * 255)
+    });
+  };
+
+  const handleProfileUpdate = () => {
+    publishEvent('/user/profile-update', {
+      user_id: currentUser.userId,
+      fields_updated: ['avatar', 'bio']
+    });
+  };
+
+  const handleFollow = () => {
+    publishEvent('/user/follow', {
+      follower_id: currentUser.userId,
+      followed_user_id: `user_${Math.floor(Math.random() * 1000)}`
+    });
+  };
+
   const handleCreatePost = () => {
-    const userId = currentUser.name;
-    const content = postContent || `Photo from ${new Date().toLocaleTimeString()}`;
-    publishEvent('post', { user_id: userId, content });
+    const content = postContent || `Post from ${new Date().toLocaleTimeString()}`;
+    publishEvent('/user/post-create', {
+      user_id: currentUser.userId,
+      content,
+      media_urls: []
+    });
     setPostContent('');
   };
 
-  const handleLikePost = () => {
-    const userId = currentUser.name;
-    const postId = `post_${Math.floor(Math.random() * 1000)}`;
-    publishEvent('like', { user_id: userId, post_id: postId });
-  };
-
-  const handleFollowUser = () => {
-    const followerId = currentUser.name;
-    const followedId = `user_${Math.floor(Math.random() * 1000)}`;
-    publishEvent('follow', {
-      follower_id: followerId,
-      followed_user_id: followedId
+  const handleDeletePost = () => {
+    publishEvent('/user/post-delete', {
+      user_id: currentUser.userId,
+      post_id: `post_${Math.floor(Math.random() * 1000)}`,
+      reason: 'user_requested'
     });
   };
 
-  const handleAddComment = () => {
-    const userId = currentUser.name;
-    const postId = `post_${Math.floor(Math.random() * 1000)}`;
-    const ownerId = `user_${Math.floor(Math.random() * 1000)}`;
-    const content = commentContent || `Nice! 🔥`;
-    publishEvent('comment', {
-      user_id: userId,
-      post_id: postId,
-      post_owner_id: ownerId,
+  // ========== CONTENT INTERACTIONS ==========
+  const handleLike = () => {
+    publishEvent('/content/like', {
+      user_id: currentUser.userId,
+      post_id: `post_${Math.floor(Math.random() * 1000)}`
+    });
+  };
+
+  const handleComment = () => {
+    const content = commentContent || 'Great post! 🔥';
+    publishEvent('/content/comment', {
+      user_id: currentUser.userId,
+      post_id: `post_${Math.floor(Math.random() * 1000)}`,
+      post_owner_id: `user_${Math.floor(Math.random() * 1000)}`,
       content
     });
     setCommentContent('');
+  };
+
+  const handleShare = () => {
+    publishEvent('/content/share', {
+      user_id: currentUser.userId,
+      post_id: `post_${Math.floor(Math.random() * 1000)}`,
+      share_target: 'timeline'
+    });
+  };
+
+  // ========== SYSTEM EVENTS ==========
+  const handleSystemNotification = () => {
+    publishEvent('/system/notification', {
+      notification_type: 'maintenance',
+      message: 'System maintenance scheduled',
+      target_users: [currentUser.userId]
+    });
   };
 
   return (
@@ -88,113 +137,111 @@ const EventPublisher = ({ onEventPublished }) => {
         </div>
       </div>
 
-
-
-      {/* Tab Navigation */}
+      {/* Tab Navigation - 3 categories from slide */}
       <div className="ig-tabs">
         <button
-          className={`ig-tab ${activeTab === 'feed' ? 'active' : ''}`}
-          onClick={() => setActiveTab('feed')}
+          className={`ig-tab ${activeTab === 'user' ? 'active' : ''}`}
+          onClick={() => setActiveTab('user')}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>
-          Feed
+          🟢 User Actions
         </button>
         <button
-          className={`ig-tab ${activeTab === 'actions' ? 'active' : ''}`}
-          onClick={() => setActiveTab('actions')}
+          className={`ig-tab ${activeTab === 'content' ? 'active' : ''}`}
+          onClick={() => setActiveTab('content')}
         >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Actions
+          🔵 Content
+        </button>
+        <button
+          className={`ig-tab ${activeTab === 'system' ? 'active' : ''}`}
+          onClick={() => setActiveTab('system')}
+        >
+          🟠 System
         </button>
       </div>
 
       {/* Content Area */}
       <div className="ig-content">
-        {activeTab === 'feed' && (
-          <div className="ig-create-post">
-            {/* New Post Card */}
-            <div className="ig-post-card">
-              <div className="ig-post-header">
-                <span className="ig-post-avatar">{currentUser.avatar}</span>
-                <span className="ig-post-user">{currentUser.name}</span>
-                <span className="ig-post-time">now</span>
-              </div>
-              <div className="ig-post-image">
-                <div className="ig-post-placeholder">
-                  📸
-                  <span>Share a moment</span>
-                </div>
-              </div>
-              <div className="ig-post-actions-bar">
-                <button className="ig-action-btn" onClick={handleLikePost} disabled={loading}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                </button>
-                <button className="ig-action-btn" onClick={() => setActiveTab('actions')} disabled={loading}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                </button>
-                <button className="ig-action-btn" onClick={handleFollowUser} disabled={loading}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-                </button>
-              </div>
+        {activeTab === 'user' && (
+          <div className="ig-actions-grid">
+            <button onClick={handleRegister} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">🆕</div>
+              <span>Register</span>
+              <small>user_registration</small>
+            </button>
+            <button onClick={handleLogin} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">🔑</div>
+              <span>Login</span>
+              <small>user_login</small>
+            </button>
+            <button onClick={handleProfileUpdate} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">✏️</div>
+              <span>Update Profile</span>
+              <small>user_profile_update</small>
+            </button>
+            <button onClick={handleFollow} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">👥</div>
+              <span>Follow</span>
+              <small>user_follow</small>
+            </button>
+            <button onClick={handleCreatePost} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">📝</div>
+              <span>Create Post</span>
+              <small>user_post_create</small>
+            </button>
+            <button onClick={handleDeletePost} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">🗑️</div>
+              <span>Delete Post</span>
+              <small>user_post_delete</small>
+            </button>
+          </div>
+        )}
 
-              {/* Caption/Post input */}
-              <div className="ig-caption-area">
-                <input
-                  type="text"
-                  className="ig-caption-input"
-                  placeholder="Write a caption..."
-                  value={postContent}
-                  onChange={(e) => setPostContent(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleCreatePost()}
-                />
-                <button
-                  className="ig-share-btn"
-                  onClick={handleCreatePost}
-                  disabled={loading}
-                >
-                  Share
-                </button>
-              </div>
+        {activeTab === 'content' && (
+          <div className="ig-actions-grid">
+            <button onClick={handleLike} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">❤️</div>
+              <span>Like</span>
+              <small>content_like</small>
+            </button>
+            <button onClick={handleComment} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">💬</div>
+              <span>Comment</span>
+              <small>content_comment</small>
+            </button>
+            <button onClick={handleShare} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">🔄</div>
+              <span>Share</span>
+              <small>content_share</small>
+            </button>
 
-              {/* Comment input */}
-              <div className="ig-comment-area">
-                <input
-                  type="text"
-                  className="ig-comment-input"
-                  placeholder="Add a comment..."
-                  value={commentContent}
-                  onChange={(e) => setCommentContent(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAddComment()}
-                />
-                <button
-                  className="ig-comment-btn"
-                  onClick={handleAddComment}
-                  disabled={loading || !commentContent}
-                >
-                  Post
-                </button>
-              </div>
+            {/* Quick input for post/comment */}
+            <div className="ig-quick-input" style={{ gridColumn: '1 / -1' }}>
+              <input
+                type="text"
+                placeholder="Write a post..."
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleCreatePost()}
+                className="ig-caption-input"
+              />
+              <input
+                type="text"
+                placeholder="Add a comment..."
+                value={commentContent}
+                onChange={(e) => setCommentContent(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleComment()}
+                className="ig-comment-input"
+              />
             </div>
           </div>
         )}
 
-        {activeTab === 'actions' && (
+        {activeTab === 'system' && (
           <div className="ig-actions-grid">
-            <button onClick={handleCreatePost} disabled={loading} className="ig-grid-btn">
-              <div className="ig-grid-icon">📝</div>
-              <span>New Post</span>
-            </button>
-            <button onClick={handleLikePost} disabled={loading} className="ig-grid-btn">
-              <div className="ig-grid-icon">❤️</div>
-              <span>Like</span>
-            </button>
-            <button onClick={handleFollowUser} disabled={loading} className="ig-grid-btn">
-              <div className="ig-grid-icon">👥</div>
-              <span>Follow</span>
-            </button>
-            <button onClick={handleAddComment} disabled={loading} className="ig-grid-btn">
-              <div className="ig-grid-icon">💬</div>
-              <span>Comment</span>
+            <button onClick={handleSystemNotification} disabled={loading} className="ig-grid-btn">
+              <div className="ig-grid-icon">🔔</div>
+              <span>Notification</span>
+              <small>system_notification</small>
             </button>
           </div>
         )}

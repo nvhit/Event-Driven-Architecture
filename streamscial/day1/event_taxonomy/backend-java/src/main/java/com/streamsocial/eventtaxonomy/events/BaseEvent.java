@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,14 +21,18 @@ public class BaseEvent {
     @Builder.Default
     private String eventId = UUID.randomUUID().toString();
 
-    @Builder.Default
-    private Instant timestamp = Instant.now();
-
     @JsonProperty("event_type")
     private String eventType;
 
+    @Builder.Default
+    private LocalDateTime timestamp = LocalDateTime.now();
+
     @JsonProperty("user_id")
     private String userId;
+
+    @JsonProperty("session_id")
+    @Builder.Default
+    private String sessionId = UUID.randomUUID().toString();
 
     private Map<String, Object> data;
 
@@ -38,9 +42,10 @@ public class BaseEvent {
     public static BaseEvent create(EventType type, String userId, Map<String, Object> data) {
         return BaseEvent.builder()
                 .eventId(UUID.randomUUID().toString())
-                .timestamp(Instant.now())
                 .eventType(type.getValue())
+                .timestamp(LocalDateTime.now())
                 .userId(userId)
+                .sessionId(UUID.randomUUID().toString())
                 .data(data)
                 .metadata(new HashMap<>())
                 .build();

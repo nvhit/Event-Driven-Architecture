@@ -11,20 +11,17 @@ public class NotificationHandler {
 
     private final Map<String, List<Map<String, Object>>> notifications = new ConcurrentHashMap<>();
 
-    public void handleFollowInitiated(BaseEvent event) {
+    public void handleFollowUser(BaseEvent event) {
         String followedUser = (String) event.getData().get("followed_user_id");
         String follower = event.getUserId();
 
-        notifications.computeIfAbsent(followedUser, k -> Collections.synchronizedList(new ArrayList<>()));
-
-        Map<String, Object> notification = new HashMap<>();
-        notification.put("type", "new_follower");
-        notification.put("message", "User " + follower + " started following you");
-        notification.put("timestamp", event.getTimestamp().toString());
-        notification.put("read", false);
-
-        notifications.get(followedUser).add(notification);
-        System.out.println("🔔 Notification sent to user " + followedUser);
+        addNotification(followedUser, Map.of(
+                "type", "new_follower",
+                "message", "User " + follower + " started following you",
+                "timestamp", event.getTimestamp().toString(),
+                "read", false
+        ));
+        System.out.println("🔔 Follow notification sent to user " + followedUser);
     }
 
     public void handleCommentAdded(BaseEvent event) {
@@ -32,17 +29,40 @@ public class NotificationHandler {
         String commenter = event.getUserId();
 
         if (postOwner != null && !postOwner.equals(commenter)) {
-            notifications.computeIfAbsent(postOwner, k -> Collections.synchronizedList(new ArrayList<>()));
-
-            Map<String, Object> notification = new HashMap<>();
-            notification.put("type", "comment");
-            notification.put("message", "User " + commenter + " commented on your post");
-            notification.put("timestamp", event.getTimestamp().toString());
-            notification.put("read", false);
-
-            notifications.get(postOwner).add(notification);
+            addNotification(postOwner, Map.of(
+                    "type", "comment",
+                    "message", "User " + commenter + " commented on your post",
+                    "timestamp", event.getTimestamp().toString(),
+                    "read", false
+            ));
             System.out.println("💬 Comment notification sent to user " + postOwner);
         }
+    }
+
+    public void handleContentLiked(BaseEvent event) {
+        String postId = (String) event.getData().get("post_id");
+        String liker = event.getUserId();
+
+        // In a real system, we'd look up the post owner
+        System.out.println("❤️ Like notification - " + liker + " liked post " + postId);
+    }
+
+    public void handleUserRegistration(BaseEvent event) {
+        String userId = event.getUserId();
+        String username = (String) event.getData().get("username");
+
+        addNotification(userId, Map.of(
+                "type", "welcome",
+                "message", "Welcome to StreamSocial, " + username + "!",
+                "timestamp", event.getTimestamp().toString(),
+                "read", false
+        ));
+        System.out.println("🎉 Welcome notification sent to new user " + username);
+    }
+
+    private void addNotification(String userId, Map<String, Object> notification) {
+        notifications.computeIfAbsent(userId, k -> Collections.synchronizedList(new ArrayList<>()));
+        notifications.get(userId).add(new HashMap<>(notification));
     }
 
     public List<Map<String, Object>> getNotifications(String userId) {

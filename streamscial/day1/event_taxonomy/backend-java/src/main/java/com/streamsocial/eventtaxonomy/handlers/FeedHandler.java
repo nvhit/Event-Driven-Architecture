@@ -22,7 +22,7 @@ public class FeedHandler {
         postData.put("likes", 0);
 
         feedData.get(userId).add(postData);
-        System.out.println("🔄 Feed updated for user " + userId);
+        System.out.println("📝 Feed updated - new post by user " + userId);
     }
 
     public void handlePostLiked(BaseEvent event) {
@@ -36,7 +36,18 @@ public class FeedHandler {
                 }
             }
         }
-        System.out.println("❤️ Post " + postId + " liked");
+        System.out.println("❤️ Post " + postId + " liked by " + event.getUserId());
+    }
+
+    public void handlePostDeleted(BaseEvent event) {
+        String postId = (String) event.getData().get("post_id");
+        String userId = event.getUserId();
+
+        List<Map<String, Object>> userPosts = feedData.get(userId);
+        if (userPosts != null) {
+            userPosts.removeIf(post -> postId.equals(post.get("post_id")));
+        }
+        System.out.println("🗑️ Post " + postId + " deleted by user " + userId);
     }
 
     public List<Map<String, Object>> getUserFeed(String userId) {
