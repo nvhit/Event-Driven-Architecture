@@ -1,0 +1,97 @@
+<svg viewBox="0 0 900 580" style="width: 100%; max-width: 1000px; height: auto; max-height: 72vh;" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
+
+    <!-- Title -->
+    <text x="450" y="30" text-anchor="middle" fill="#a8dadc" font-weight="bold" font-size="18">Máy Trạng Thái Sự Kiện — StreamSocial</text>
+
+    <!-- START node (filled circle) -->
+    <circle cx="60" cy="110" r="22" fill="#eee" stroke="#eee" stroke-width="3"/>
+    <circle cx="60" cy="110" r="12" fill="#1a1a2e"/>
+    <text x="60" y="150" text-anchor="middle" fill="#888" font-size="10">Bắt đầu</text>
+
+    <!-- Arrow: Start → User Action -->
+    <line x1="82" y1="110" x2="155" y2="110" stroke="#888" stroke-width="1.5"/>
+    <polygon points="153,106 161,110 153,114" fill="#888"/>
+    <text x="118" y="100" text-anchor="middle" fill="#888" font-size="9">kích hoạt</text>
+
+    <!-- User Action Triggered (green circle) -->
+    <circle cx="210" cy="110" r="35" fill="none" stroke="#7ee787" stroke-width="2.5"/>
+    <text x="210" y="105" text-anchor="middle" fill="#7ee787" font-weight="bold" font-size="11">Hành động</text>
+    <text x="210" y="122" text-anchor="middle" fill="#7ee787" font-size="10">Người dùng</text>
+
+    <!-- Arrow: User Action → Event Created -->
+    <line x1="245" y1="110" x2="345" y2="110" stroke="#888" stroke-width="1.5"/>
+    <polygon points="343,106 351,110 343,114" fill="#888"/>
+    <text x="295" y="100" text-anchor="middle" fill="#888" font-size="9">xác thực</text>
+
+    <!-- Event Created (orange circle) -->
+    <circle cx="400" cy="110" r="35" fill="none" stroke="#f4a261" stroke-width="2.5"/>
+    <text x="400" y="105" text-anchor="middle" fill="#f4a261" font-weight="bold" font-size="11">Sự kiện</text>
+    <text x="400" y="122" text-anchor="middle" fill="#f4a261" font-size="10">Đã tạo</text>
+
+    <!-- Arrow: Event Created → Event Published -->
+    <line x1="435" y1="110" x2="555" y2="110" stroke="#888" stroke-width="1.5"/>
+    <polygon points="553,106 561,110 553,114" fill="#888"/>
+    <text x="495" y="100" text-anchor="middle" fill="#888" font-size="9">phát hành</text>
+
+    <!-- Event Published (blue circle) -->
+    <circle cx="610" cy="110" r="35" fill="none" stroke="#667eea" stroke-width="2.5"/>
+    <text x="610" y="105" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="11">Sự kiện</text>
+    <text x="610" y="122" text-anchor="middle" fill="#667eea" font-size="10">Đã gửi</text>
+
+    <!-- Arrow: Event Published → Event Processing (down-right) -->
+    <line x1="610" y1="145" x2="500" y2="280" stroke="#888" stroke-width="1.5"/>
+    <polygon points="497,276 501,284 505,277" fill="#888"/>
+    <text x="570" y="210" fill="#888" font-size="9">tiêu thụ</text>
+
+    <!-- Event Processing (purple circle) -->
+    <circle cx="480" cy="320" r="38" fill="none" stroke="#d2a8ff" stroke-width="2.5"/>
+    <text x="480" y="315" text-anchor="middle" fill="#d2a8ff" font-weight="bold" font-size="11">Đang xử lý</text>
+    <text x="480" y="332" text-anchor="middle" fill="#d2a8ff" font-size="10">Sự kiện</text>
+
+    <!-- Retry Queue (red circle) -->
+    <circle cx="230" cy="320" r="35" fill="none" stroke="#ff7b72" stroke-width="2.5"/>
+    <text x="230" y="315" text-anchor="middle" fill="#ff7b72" font-weight="bold" font-size="11">Hàng đợi</text>
+    <text x="230" y="332" text-anchor="middle" fill="#ff7b72" font-size="10">Thử lại</text>
+
+    <!-- Arrow: Processing → Retry (error) -->
+    <line x1="442" y1="310" x2="268" y2="310" stroke="#ff7b72" stroke-width="1.5"/>
+    <polygon points="270,306 262,310 270,314" fill="#ff7b72"/>
+    <text x="355" y="300" text-anchor="middle" fill="#888" font-size="9">lỗi</text>
+
+    <!-- Arrow: Retry → Processing (retry) -->
+    <line x1="268" y1="335" x2="442" y2="335" stroke="#888" stroke-width="1.5"/>
+    <polygon points="440,331 448,335 440,339" fill="#888"/>
+    <text x="355" y="352" text-anchor="middle" fill="#888" font-size="9">thử lại</text>
+
+    <!-- Arrow: Processing → Success (down-right) -->
+    <line x1="510" y1="350" x2="620" y2="440" stroke="#888" stroke-width="1.5"/>
+    <polygon points="617,436 622,444 625,437" fill="#888"/>
+    <text x="580" y="390" fill="#888" font-size="9">thành công</text>
+
+    <!-- Success Processed (green circle) -->
+    <circle cx="650" cy="470" r="35" fill="none" stroke="#7ee787" stroke-width="2.5"/>
+    <text x="650" y="465" text-anchor="middle" fill="#7ee787" font-weight="bold" font-size="11">Thành công</text>
+    <text x="650" y="482" text-anchor="middle" fill="#7ee787" font-size="10">Đã xử lý</text>
+
+    <!-- Arrow: Success → End -->
+    <line x1="685" y1="470" x2="775" y2="470" stroke="#888" stroke-width="1.5"/>
+    <polygon points="773,466 781,470 773,474" fill="#888"/>
+    <text x="730" y="460" text-anchor="middle" fill="#888" font-size="9">hoàn tất</text>
+
+    <!-- END node (filled circle with ring) -->
+    <circle cx="820" cy="470" r="22" fill="none" stroke="#eee" stroke-width="3"/>
+    <circle cx="820" cy="470" r="14" fill="#eee"/>
+    <text x="820" y="508" text-anchor="middle" fill="#888" font-size="10">Kết thúc</text>
+
+    <!-- Legend: State Descriptions -->
+    <text x="30" y="520" fill="#a8dadc" font-weight="bold" font-size="11">Mô tả trạng thái:</text>
+    <text x="30" y="540" fill="#7ee787" font-weight="bold" font-size="9.5">Hành động Người dùng:</text>
+    <text x="185" y="540" fill="#aaa" font-size="9.5">Thực hiện thao tác (thích, bình luận, đăng ký)</text>
+    <text x="30" y="555" fill="#f4a261" font-weight="bold" font-size="9.5">Sự kiện Đã tạo:</text>
+    <text x="150" y="555" fill="#aaa" font-size="9.5">Tạo đối tượng event với UUID, timestamp, metadata</text>
+    <text x="450" y="540" fill="#667eea" font-weight="bold" font-size="9.5">Sự kiện Đã gửi:</text>
+    <text x="570" y="540" fill="#aaa" font-size="9.5">Gửi lên Kafka topic, phân vùng theo user_id</text>
+    <text x="450" y="555" fill="#d2a8ff" font-weight="bold" font-size="9.5">Đang xử lý:</text>
+    <text x="540" y="555" fill="#aaa" font-size="9.5">Consumer services xử lý song song</text>
+
+</svg>
