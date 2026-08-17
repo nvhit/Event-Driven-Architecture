@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P24 · Advanced Ops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 04 · <span class="accent">Production Config</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Vận hành</span>
+    <h2 class="slide-h2">Vận hành Cluster nâng cao</h2>
+    <div class="hairline-bar"></div>
+    <div class="grid-2">
+      <div class="card"><span class="card-tag">Zero-downtime</span><h3>Rolling Updates</h3><p>Nâng cấp từng broker một mà không gây gián đoạn dịch vụ</p></div>
+      <div class="card"><span class="card-tag">Balance</span><h3>Partition Rebalancing</h3><p>Phân bổ lại partition khi thêm/xóa broker</p></div>
+      <div class="card"><span class="card-tag">Resilience</span><h3>Rack Awareness</h3><p>Phân tán bản sao lưu trên nhiều trung tâm dữ liệu để phục hồi sau sự cố</p></div>
+      <div class="card"><span class="card-tag">Storage</span><h3>Topic Compaction</h3><p>Chỉ giữ lại giá trị mới nhất cho mỗi key để tham chiếu data</p></div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">24 / 42</span></div>
+</body>
+</html>

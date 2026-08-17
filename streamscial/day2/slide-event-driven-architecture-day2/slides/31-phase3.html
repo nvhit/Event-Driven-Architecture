@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P31 · Phase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 05 · <span class="accent">Giai đoạn 03 / 07</span></div>
+  <div class="slide-body">
+    <span class="eyebrow small">Giai đoạn 3</span>
+    <h2 class="slide-h2" style="font-size: 42px;">Consumer Group</h2>
+    <div class="hairline-bar tight"></div>
+    <div class="code-block">
+<span class="cb-label">application.yml</span>
+spring:<br>
+&nbsp;&nbsp;kafka:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;consumer:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bootstrap-servers: <span class="str">localhost:9092,localhost:9093,localhost:9094</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group-id: <span class="str">streamsocial-cluster-consumers</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto-offset-reset: <span class="str">latest</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enable-auto-commit: <span class="kw">true</span>
+    </div>
+    <div class="highlight" style="margin-top: 20px; font-family: var(--mono); font-size: 17px;">
+      docker exec kafka-broker-1 kafka-consumer-groups --bootstrap-server localhost:9092 --list
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">31 / 42</span></div>
+</body>
+</html>

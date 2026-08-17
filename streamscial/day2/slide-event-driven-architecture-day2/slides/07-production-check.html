@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P07 · Production Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 01 · <span class="accent">Single-Point-of-Failure</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Chẩn đoán</span>
+    <h2 class="slide-h2">Check Production thực tế</h2>
+    <div class="hairline-bar"></div>
+    <div class="grid-2">
+      <div class="card"><span class="card-tag">Single broker</span><h3>Điểm yếu duy nhất</h3><p>Single point of failure — toàn hệ thống phụ thuộc vào 1 máy chủ</p></div>
+      <div class="card"><span class="card-tag">Không sao lưu</span><h3>Mất dữ liệu vĩnh viễn</h3><p>Không có replication, không có bản sao dự phòng</p></div>
+      <div class="card"><span class="card-tag">Xử lý hạn chế</span><h3>Trải nghiệm suy giảm</h3><p>Tốc độ xử lý bị nghẽn khi lưu lượng tăng đột biến</p></div>
+      <div class="card"><span class="card-tag">Khôi phục thủ công</span><h3>Nhiều giờ ngừng hoạt động</h3><p>Không có failover tự động, mọi thứ chờ con người can thiệp</p></div>
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">07 / 42</span></div>
+</body>
+</html>

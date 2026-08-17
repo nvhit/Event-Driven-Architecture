@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P40 · Challenge Exercise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 06 · <span class="accent">Tổng kết</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Thử thách</span>
+    <h2 class="slide-h2">🏋️ Bài tập thử thách</h2>
+    <div class="hairline-bar"></div>
+    <div class="highlight">
+      Mở rộng cụm lên <strong>5 broker</strong> và triển khai định vị bản sao nhận biết vị trí rack (rack-aware replica placement).<br><br>
+      Cấu hình các topic với hệ số sao chép là <strong>5</strong> và quan sát cách phân bổ quyền lãnh đạo phân vùng trên cụm mở rộng.
+    </div>
+    <p class="slide-sub" style="margin-top: 28px; font-size: 22px;">Phương pháp giải quyết</p>
+    <ul class="arrow-list" style="margin-top: 12px;">
+      <li>Thêm cấu hình rack vào mỗi broker</li>
+      <li>Dùng tham số <code>--replica-assignment</code> khi tạo topic</li>
+      <li>Giám sát phân phối quyền điều khiển bằng công cụ tích hợp sẵn của Kafka</li>
+      <li>Kiểm tra failover bằng cách dừng broker ở các rack khác nhau</li>
+    </ul>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">40 / 42</span></div>
+</body>
+</html>

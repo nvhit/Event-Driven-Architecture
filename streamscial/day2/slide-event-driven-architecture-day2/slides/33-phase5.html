@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P33 · Phase 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 05 · <span class="accent">Giai đoạn 05 / 07</span></div>
+  <div class="slide-body">
+    <span class="eyebrow small">Giai đoạn 5</span>
+    <h2 class="slide-h2" style="font-size: 40px;">Phát triển API nâng cao</h2>
+    <div class="hairline-bar tight"></div>
+    <ul class="arrow-list" style="margin-bottom: 24px;">
+      <li><code>/cluster/health</code> → Trạng thái tổng thể của cluster</li>
+      <li><code>/cluster/metadata</code> → Cấu trúc mạng của Broker</li>
+      <li><code>/consumers/stats</code> → Số liệu Consumer group</li>
+      <li><code>/cluster/simulate-failure</code> → Kiểm thử khả năng chịu lỗi</li>
+    </ul>
+    <div class="code-block">
+<span class="kw">@Component</span><br>
+<span class="kw">public class</span> <span class="cl">ConsumerBootstrap</span> {<br>
+&nbsp;&nbsp;<span class="kw">@EventListener</span>(ApplicationReadyEvent.<span class="fn">class</span>)<br>
+&nbsp;&nbsp;<span class="kw">public void</span> <span class="fn">startConsumers</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Start multiple consumers</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">int</span> i = <span class="str">0</span>; i &lt; <span class="str">3</span>; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">var</span> consumer = <span class="kw">new</span> ClusterEventConsumer(<span class="str">"consumer-"</span> + i);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;consumer.startConsuming();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+}
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">33 / 42</span></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P32 · Phase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 05 · <span class="accent">Giai đoạn 04 / 07</span></div>
+  <div class="slide-body">
+    <span class="eyebrow small">Giai đoạn 4</span>
+    <h2 class="slide-h2" style="font-size: 42px;">Cluster Monitoring Setup</h2>
+    <p class="slide-sub" style="font-size: 20px;">Cluster Health · Consumer Metrics · System Resources</p>
+    <div class="hairline-bar tight"></div>
+    <div class="code-block">
+<span class="kw">public</span> Map&lt;String, Object&gt; <span class="fn">getClusterHealth</span>() <span class="kw">throws</span> Exception {<br>
+&nbsp;&nbsp;DescribeClusterResult cluster = adminClient.describeCluster();<br>
+&nbsp;&nbsp;<span class="kw">int</span> brokers = cluster.nodes().get().size();<br>
+&nbsp;&nbsp;<span class="kw">int</span> topics = adminClient.listTopics().names().get().size();<br>
+&nbsp;&nbsp;Map&lt;String, Object&gt; health = <span class="kw">new</span> HashMap&lt;&gt;();<br>
+&nbsp;&nbsp;health.put(<span class="str">"brokers"</span>, brokers);<br>
+&nbsp;&nbsp;health.put(<span class="str">"topics"</span>, topics);<br>
+&nbsp;&nbsp;health.put(<span class="str">"status"</span>, brokers &gt;= <span class="str">2</span> ? <span class="str">"healthy"</span> : <span class="str">"degraded"</span>);<br>
+&nbsp;&nbsp;<span class="kw">return</span> health;<br>
+}
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">32 / 42</span></div>
+</body>
+</html>

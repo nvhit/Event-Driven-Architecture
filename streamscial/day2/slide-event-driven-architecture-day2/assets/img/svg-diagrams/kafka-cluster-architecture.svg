@@ -1,0 +1,89 @@
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="1000" height="620" fill="#ffffff"/>
+
+  <!-- Tiêu đề -->
+  <text x="500" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a2e">Kiến Trúc Kafka Cluster StreamSocial</text>
+
+  <!-- KRaft Control Plane -->
+  <rect x="30" y="55" width="940" height="90" rx="14" fill="#ffffff" stroke="#1e88e5" stroke-width="2"/>
+  <text x="500" y="88" text-anchor="middle" font-size="17" font-weight="bold" fill="#1565c0">KRaft Control Plane (Mặt phẳng điều khiển)</text>
+  <text x="220" y="118" text-anchor="middle" font-size="12" fill="#333">Bầu chọn Leader</text>
+  <text x="500" y="118" text-anchor="middle" font-size="12" fill="#333">Quản lý Metadata</text>
+  <text x="790" y="118" text-anchor="middle" font-size="12" fill="#333">Điều phối Cluster</text>
+
+  <!-- Dotted green lines nối 3 broker -->
+  <line x1="320" y1="245" x2="410" y2="245" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="590" y1="245" x2="680" y2="245" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Đường nhân bản (đỏ, nét đứt, cong) -->
+  <path d="M 300,345 C 400,375 460,320 500,345 C 540,370 600,375 700,345" fill="none" stroke="#e53935" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="500" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c62828">Replication Data (RF=3)</text>
+
+  <!-- Broker 1 -->
+  <circle cx="230" cy="290" r="90" fill="#c8f7c5" stroke="#2e7d32" stroke-width="3"/>
+  <text x="230" y="278" text-anchor="middle" font-size="15" font-weight="bold" fill="#1b5e20">Broker 1</text>
+  <text x="230" y="298" text-anchor="middle" font-size="11" fill="#1b5e20">Port 9092</text>
+  <text x="230" y="314" text-anchor="middle" font-size="11" fill="#1b5e20">Controller</text>
+
+  <!-- Broker 2 -->
+  <circle cx="500" cy="290" r="90" fill="#c8f7c5" stroke="#2e7d32" stroke-width="3"/>
+  <text x="500" y="278" text-anchor="middle" font-size="15" font-weight="bold" fill="#1b5e20">Broker 2</text>
+  <text x="500" y="298" text-anchor="middle" font-size="11" fill="#1b5e20">Port 9093</text>
+  <text x="500" y="314" text-anchor="middle" font-size="11" fill="#1b5e20">Follower</text>
+
+  <!-- Broker 3 -->
+  <circle cx="770" cy="290" r="90" fill="#c8f7c5" stroke="#2e7d32" stroke-width="3"/>
+  <text x="770" y="278" text-anchor="middle" font-size="15" font-weight="bold" fill="#1b5e20">Broker 3</text>
+  <text x="770" y="298" text-anchor="middle" font-size="11" fill="#1b5e20">Port 9094</text>
+  <text x="770" y="314" text-anchor="middle" font-size="11" fill="#1b5e20">Follower</text>
+
+  <!-- Mũi tên xuống các client -->
+  <defs>
+    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+  <line x1="210" y1="375" x2="185" y2="428" stroke="#555" stroke-width="1.8" marker-end="url(#arrowGray)"/>
+  <line x1="480" y1="378" x2="435" y2="428" stroke="#555" stroke-width="1.8" marker-end="url(#arrowGray)"/>
+  <line x1="750" y1="375" x2="685" y2="428" stroke="#555" stroke-width="1.8" marker-end="url(#arrowGray)"/>
+
+  <!-- StreamSocial Producer -->
+  <rect x="90" y="430" width="190" height="90" rx="12" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
+  <text x="185" y="465" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">StreamSocial</text>
+  <text x="185" y="482" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Producer</text>
+  <text x="185" y="502" text-anchor="middle" font-size="11" fill="#bf360c">Sự kiện người dùng</text>
+
+  <!-- Analytics Consumer -->
+  <rect x="340" y="430" width="190" height="90" rx="12" fill="#ffe0b2" stroke="#ef6c00" stroke-width="2"/>
+  <text x="435" y="465" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Analytics</text>
+  <text x="435" y="482" text-anchor="middle" font-size="14" font-weight="bold" fill="#e65100">Consumer</text>
+  <text x="435" y="502" text-anchor="middle" font-size="11" fill="#bf360c">Xử lý sự kiện</text>
+
+  <!-- Monitoring Dashboard -->
+  <rect x="590" y="430" width="190" height="90" rx="12" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="685" y="465" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d47a1">Monitoring</text>
+  <text x="685" y="482" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d47a1">Dashboard</text>
+  <text x="685" y="502" text-anchor="middle" font-size="11" fill="#0d47a1">Số liệu thời gian thực</text>
+
+  <!-- Topics và Partitions -->
+  <rect x="830" y="400" width="150" height="210" rx="12" fill="#fff3cd" stroke="#f9a825" stroke-width="2"/>
+  <text x="905" y="428" text-anchor="middle" font-size="13" font-weight="bold" fill="#8d6e00">Topics và</text>
+  <text x="905" y="444" text-anchor="middle" font-size="13" font-weight="bold" fill="#8d6e00">Partitions</text>
+  <text x="905" y="470" text-anchor="middle" font-size="11" font-weight="bold" fill="#5d4037">user-actions</text>
+  <text x="905" y="485" text-anchor="middle" font-size="10" fill="#5d4037">3 partitions, RF=3</text>
+  <text x="905" y="510" text-anchor="middle" font-size="11" font-weight="bold" fill="#5d4037">content-interactions</text>
+  <text x="905" y="525" text-anchor="middle" font-size="10" fill="#5d4037">3 partitions, RF=3</text>
+  <text x="905" y="550" text-anchor="middle" font-size="11" font-weight="bold" fill="#5d4037">system-events</text>
+  <text x="905" y="565" text-anchor="middle" font-size="10" fill="#5d4037">1 partition, RF=3</text>
+
+  <!-- Legend -->
+  <text x="30" y="600" font-size="12" font-weight="bold" fill="#333">Chú giải:</text>
+  <circle cx="120" cy="596" r="7" fill="#c8f7c5" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="133" y="600" font-size="11" fill="#333">Kafka Broker</text>
+  <rect x="260" y="589" width="14" height="14" fill="#ffe0b2" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="280" y="600" font-size="11" fill="#333">Ứng dụng Client</text>
+  <rect x="440" y="589" width="14" height="14" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="460" y="600" font-size="11" fill="#333">Dịch vụ giám sát</text>
+  <line x1="620" y1="596" x2="650" y2="596" stroke="#e53935" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="658" y="600" font-size="11" fill="#333">Luồng Replication</text>
+</svg>

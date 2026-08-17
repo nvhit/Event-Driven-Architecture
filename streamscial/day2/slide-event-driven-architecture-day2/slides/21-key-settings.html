@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P21 · Key Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 04 · <span class="accent">Production Config</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Config</span>
+    <h2 class="slide-h2">Các thiết lập quan trọng</h2>
+    <div class="hairline-bar"></div>
+    <div class="code-block">
+<span class="cb-label">server.properties</span>
+<span class="cm"># High availability</span><br>
+default.replication.factor: <span class="str">3</span><br>
+min.insync.replicas: <span class="str">2</span><br><br>
+<span class="cm"># Performance tuning</span><br>
+num.network.threads: <span class="str">8</span><br>
+num.io.threads: <span class="str">16</span><br>
+socket.send.buffer.bytes: <span class="str">102400</span><br>
+socket.receive.buffer.bytes: <span class="str">102400</span>
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">21 / 42</span></div>
+</body>
+</html>

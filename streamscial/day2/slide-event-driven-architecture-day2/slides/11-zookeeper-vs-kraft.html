@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P11 · Zookeeper vs KRaft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 02 · <span class="accent">Multi-Broker Cluster</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Coordination</span>
+    <h2 class="slide-h2">Zookeeper vs KRaft</h2>
+    <div class="hairline-bar"></div>
+    <div class="vs-row">
+      <div class="vs-box"><span class="vs-label">Zookeeper Era</span><h3>Dịch vụ điều phối ngoài</h3><p>Quản lý metadata, bầu leader, cấu hình. Phức tạp hơn nhưng đã được kiểm chứng qua production.</p></div>
+      <div class="vs-arrow">→</div>
+      <div class="vs-box emphasis"><span class="vs-label">KRaft Mode</span><h3>Giao thức đồng thuận gốc</h3><p>Loại bỏ Zookeeper. Đơn giản hơn, nhanh hơn, nhưng mới hơn.</p></div>
+    </div>
+    <div class="highlight" style="margin-top: 28px;">
+      💡 Đối với StreamSocial, chúng ta dùng <strong>Zookeeper</strong> để đảm bảo tính ổn định, sau đó tìm hiểu KRaft ở bài nâng cao.
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">11 / 42</span></div>
+</body>
+</html>

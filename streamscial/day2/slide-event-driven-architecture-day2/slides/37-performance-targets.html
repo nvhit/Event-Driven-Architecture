@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P37 · Performance Targets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 05 · <span class="accent">Thực hành triển khai</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Targets</span>
+    <h2 class="slide-h2">Tiêu chuẩn hiệu suất</h2>
+    <div class="hairline-bar"></div>
+    <table class="spec-table">
+      <tr><th>Chỉ số</th><th>Mục tiêu</th></tr>
+      <tr><td><strong>Throughput</strong></td><td>&gt; 10.000 events/giây trên toàn cluster</td></tr>
+      <tr><td><strong>Latency</strong></td><td>&lt; 10ms (acknowledgment từ producer)</td></tr>
+      <tr><td><strong>Availability</strong></td><td>99.9% với lỗi single broker</td></tr>
+      <tr><td><strong>Recovery</strong></td><td>&lt; 30 giây cho cuộc bầu cử leader</td></tr>
+    </table>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">37 / 42</span></div>
+</body>
+</html>

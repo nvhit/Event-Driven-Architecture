@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>P15 · Replication Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div class="page-kicker">Phần 03 · <span class="accent">Cấu trúc Cluster</span></div>
+  <div class="slide-body">
+    <span class="eyebrow">Chiến lược</span>
+    <h2 class="slide-h2">Chiến lược sao chép (Replication Strategy)</h2>
+    <p class="slide-sub">Mỗi partition tồn tại trên cả 3 brokers với các vai trò khác nhau:</p>
+    <div class="hairline-bar"></div>
+    <div class="grid-2">
+      <div class="card"><span class="card-tag">×1</span><h3>Leader</h3><p>Phụ trách đọc/ghi cho partition</p></div>
+      <div class="card"><span class="card-tag">×2</span><h3>Followers</h3><p>Replicate data, sẵn sàng để promotion</p></div>
+    </div>
+    <div class="highlight" style="margin-top: 28px;">
+      🔑 Consumer Group Scaling: thay vì 1 consumer, triển khai <strong>3 consumer instances</strong> để tự động phân bổ tải partition processing.
+    </div>
+  </div>
+  <div class="page-footer"><span>Event-Driven Architecture · StreamSocial</span><span class="num">15 / 42</span></div>
+</body>
+</html>
